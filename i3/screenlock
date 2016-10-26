@@ -1,0 +1,2 @@
+#!/bin/sh
+i3lock -d -e -n -t --image /usr/share/pics/bg.png 
