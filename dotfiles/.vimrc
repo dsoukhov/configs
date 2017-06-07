@@ -47,6 +47,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+"fugitive git wrapper
+Plugin 'tpope/vim-fugitive'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -110,8 +112,16 @@ map <Right> <Nop>
 map <Up> <Nop>
 map <Down> <Nop>
 
+" save as root
+cmap w!! w !sudo tee % >/dev/null
+
+" yank contents of file to x11 clipboard
+map <F5> :%y+<CR>
+
 nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
 nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 noremap % v%
+
+
