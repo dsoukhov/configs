@@ -9,7 +9,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-" js specific 
+" js specific
 Plugin 'pangloss/vim-javascript'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'jelera/vim-javascript-syntax'
@@ -26,6 +26,7 @@ let g:ycm_confirm_extra_conf=0
 set completeopt-=preview
 " nerdtree
 Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
 " ctrlp
 Plugin 'ctrlp.vim'
 " Track the engine.
@@ -38,6 +39,8 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+"solarized theme
+Plugin 'dsoukhov/vim-colors-solarized'
 "syntastic
 Plugin 'scrooloose/syntastic'
 set statusline+=%#warningmsg#
@@ -46,7 +49,8 @@ set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_wq = 1
+let g:syntastic_enable_signs=0
 "fugitive git wrapper
 Plugin 'tpope/vim-fugitive'
 " All of your Plugins must be added before the following line
@@ -67,8 +71,8 @@ filetype plugin indent on    " required
 "Line nums hybrid by default
 set relativenumber
 set number
-hi CursorLineNr   term=bold ctermfg=Green gui=bold guifg=Green
-hi LineNr         ctermfg=DarkMagenta guifg=#2b506e guibg=#000000 
+"hi CursorLineNr   term=bold ctermfg=Green gui=bold guifg=Green
+"hi LineNr         ctermfg=DarkMagenta guifg=#2b506e guibg=#000000 
 " Spaces for tabs
 set tabstop=4
 set shiftwidth=4
@@ -76,8 +80,8 @@ set expandtab
 " Better indenting
 set autoindent
 set smartindent
-"toggle nerdtree
-map <F2> :NERDTreeToggle<CR>
+"toggle nerdtreetab
+map <F2> :NERDTreeTabsToggle<CR>
 " Show extra whitespace
 set list listchars=tab:>·,trail:·,extends:>,precedes:<
 " <Shift-V>Gds to remove trailing whitespace
@@ -102,8 +106,6 @@ hi Search cterm=NONE ctermfg=black ctermbg=yellow
 " Paste mode toggle with F10
 set pastetoggle=<F10>
 
-" allow access to system clipboard
-set clipboard+=unnamedplus
 " reload changed filed 
 set autoread
 " Disable arrow keys
@@ -112,11 +114,31 @@ map <Right> <Nop>
 map <Up> <Nop>
 map <Down> <Nop>
 
+"enable solarized
+syntax enable
+set background=dark
+colorscheme solarized
+hi CursorLineNr   term=bold ctermfg=Green gui=bold guifg=Green
+hi LineNr         ctermfg=DarkMagenta guifg=#2b506e guibg=#000000
+let g:solarized_termcolors=256
+
+"set python autocomplete w/ YCM
+let g:ycm_python_binary_path = 'python'
+
 " save as root
 cmap w!! w !sudo tee % >/dev/null
 
-" yank contents of file to x11 clipboard
+set clipboard=unnamedplus
+"toggle syntastic
+nnoremap <F3> :SyntasticToggleMode<CR>
+
+ "Buttons for going to previous/next file (buffer)
+"Show a list of files (buffers) that are open
+map <F4> :buffers<CR>
+"Yank (copy) contents of current file (buffer) - also to X11 clipboard
 map <F5> :%y+<CR>
+"Close current buffer
+map <F12> :bd!<CR>
 
 nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
@@ -124,4 +146,9 @@ nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 noremap % v%
 
+"remap split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
