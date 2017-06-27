@@ -3,6 +3,7 @@ filetype off                  " required
 
 "set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.fzf
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
@@ -15,8 +16,9 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'Raimondi/delimitMate'
 Plugin 'marijnh/tern_for_vim'
-" general code completion 
+" general code completion
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'junegunn/fzf.vim'
 " These are the tweaks I apply to YCM's config, you don't need them but they
 " might help.
 " " YCM gives you popups and splits by default that some people might not
@@ -33,6 +35,7 @@ Plugin 'ctrlp.vim'
 Plugin 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
+Plugin 'majutsushi/tagbar'
 " Trigger configuration.
 let g:UltiSnipsExpandTrigger="<c-q>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -41,16 +44,19 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 "solarized theme
 Plugin 'dsoukhov/vim-colors-solarized'
+"camelCase support
+Plugin 'bkad/CamelCaseMotion'
 "syntastic
 Plugin 'scrooloose/syntastic'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
-let g:syntastic_enable_signs=0
+let g:syntastic_loc_list_height= 5
+let g:syntastic_enable_highlighting = 0
 "fugitive git wrapper
 Plugin 'tpope/vim-fugitive'
 " All of your Plugins must be added before the following line
@@ -118,12 +124,17 @@ map <Down> <Nop>
 syntax enable
 set background=dark
 colorscheme solarized
-hi CursorLineNr   term=bold ctermfg=Green gui=bold guifg=Green
 hi LineNr         ctermfg=DarkMagenta guifg=#2b506e guibg=#000000
 let g:solarized_termcolors=256
 
 "set python autocomplete w/ YCM
 let g:ycm_python_binary_path = 'python'
+let g:nerdtree_tabs_autofind=1
+
+"enable ag search
+nnoremap <silent> <Leader>ag :Ag<CR>
+"ag search cursor word
+nnoremap <silent> <C-F> :Ag <C-R><C-W><CR>
 
 " save as root
 cmap w!! w !sudo tee % >/dev/null
@@ -137,8 +148,15 @@ nnoremap <F3> :SyntasticToggleMode<CR>
 map <F4> :buffers<CR>
 "Yank (copy) contents of current file (buffer) - also to X11 clipboard
 map <F5> :%y+<CR>
+
+"toggle tagbar
+nmap <F8> :TagbarToggle<CR>
+
 "Close current buffer
 map <F12> :bd!<CR>
+
+"set leader key to \
+let g:mapleader='\'
 
 nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
@@ -152,3 +170,11 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+map <silent> ge <Plug>CamelCaseMotion_ge
+sunmap w
+sunmap b
+sunmap e
+sunmap ge
