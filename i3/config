@@ -60,14 +60,8 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 #lock the screen
-bindsym $mod+Shift+Delete exec /home/dsoukhov/.config/i3/screenlock
+bindsym $mod+Shift+Delete exec ~/.config/i3/screenlock
 
-#volume 
-#%5 incrase
-bindsym $mod+F12 exec amixer -D pulse sset Master 5%+ && pkill -RTMIN+1 i3blocks
-bindsym $mod+F11 exec amixer -D pulse sset Master 5%- && pkill -RTMIN+1 i3blocks
-#mute
-bindsym $mod+F10 exec amixer -q sset Master toggle && pkill -RTMIN+1 i3blocks
 #alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
@@ -180,21 +174,18 @@ bindsym $mod+r mode "resize"
 exec --no-startup-id dunst
 
 #start xsettingsd
-exec --no-startup-id xsettingsd -c /home/dsoukhov/.xsettingsd
+exec --no-startup-id xsettingsd -c ~/.xsettingsd
 
-#dual screen
-exec --no-startup-id xrandr --output HDMI1 --primary --auto --left-of VGA1
 
 #set bg
 exec --no-startup-id feh --bg-scale ~/Pictures/wallpaper/bg.png
 
 #set lock
-exec --no-startup-id xautolock -time 3 -locker /home/dsoukhov/.config/i3/screenlock & disown
+exec --no-startup-id xautolock -time 3 -locker ~/.config/i3/screenlock & disown
 
 #start irc client in scratchpad 
-for_window [instance="xchat"] move to scratchpad
-bindsym $mod+c [instance="xchat"] scratchpad show
-exec xchat &
+for_window [instance=""] move to scratchpad
+bindsym $mod+c [instance=""] scratchpad show
 
 #start music player in scratchpad 
 #for_window [instance=""] move to scratchpad
